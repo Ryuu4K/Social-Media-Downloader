@@ -34,31 +34,24 @@ chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--window-size=1920x1080")
 
-# Setup WebDriver
-webdriver_service = Service('./chromedriver.exe')  # Update with your WebDriver path
+webdriver_service = Service('./chromedriver.exe')
 driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
 
-# List of search keywords
-search_keys = "WRITE SEARCH KEY HERE" #["", ""]
+search_keys = "WRITE SEARCH KEY HERE"
 
-# Create a folder to save images
 folder_path = "WRITE FOLDER PATH HERE"
 os.makedirs(folder_path, exist_ok=True)
 
-# Maximum number of images to download per keyword
 max_images_per_keyword = 50
 
-# Minimum resolution requirements
 min_width = 800
 min_height = 600
 
-# Function to download images for a given search key
 def download_images_for_search_key(search_key):
     url = f"https://www.instagram.com/explore/tags/{search_key.replace(' ', '')}/"
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(5)
 
-    # Scroll down to load more images
     image_urls = set()
     scroll_count = 0
     while len(image_urls) < max_images_per_keyword and scroll_count < 10:
@@ -66,10 +59,8 @@ def download_images_for_search_key(search_key):
         time.sleep(3)
         scroll_count += 1
         
-        # Parse page source with BeautifulSoup
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         
-        # Find image elements and extract URLs
         image_elements = soup.find_all('img', {'src': True})
         for img in image_elements:
             if len(image_urls) >= max_images_per_keyword:
@@ -77,7 +68,6 @@ def download_images_for_search_key(search_key):
             image_urls.add(img['src'])
         print(f"Found {len(image_urls)} images so far for search key '{search_key}'.")
 
-    # Download images
     downloaded_images = set()
     for idx, image_url in enumerate(image_urls):
         if idx >= max_images_per_keyword:
@@ -89,9 +79,7 @@ def download_images_for_search_key(search_key):
 
     print(f"Downloaded {len(downloaded_images)} images for search key '{search_key}'.")
 
-# Download images for each search key
 for search_key in search_keys:
     download_images_for_search_key(search_key)
 
-# Close the WebDriver
 driver.quit()
