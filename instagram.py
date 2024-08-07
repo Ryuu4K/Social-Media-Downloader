@@ -10,7 +10,6 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
-# Function to download image from a URL and check resolution
 def download_image(url, folder_path, image_name, min_width, min_height):
     try:
         response = requests.get(url)
@@ -27,9 +26,8 @@ def download_image(url, folder_path, image_name, min_width, min_height):
         print(f"Error downloading {url}: {e}")
         return False
 
-# Setup Chrome options
 chrome_options = Options()
-chrome_options.add_argument("--headless")  # Run headless Chrome
+chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--window-size=1920x1080")
