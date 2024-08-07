@@ -5,14 +5,12 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
-chrome_service = Service('./chromedriver.exe')
+chrome_service = Service('path/to/chromedriver.exe')
 
-folders = "WRITE FOLDER HERE"
+folders = "WRITE_FOLDER_HERE"
 
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
@@ -20,12 +18,15 @@ def scroll_to_bottom(driver):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     time.sleep(2)
 
+def clean_filename(filename):
+    return "".join(c for c in filename if c.isalnum() or c in (' ', '.', '_')).rstrip()
+
 def download_media(url, folder=folders):
     if not os.path.exists(folder):
         os.makedirs(folder)
     response = requests.get(url)
     if response.status_code == 200:
-        file_name = os.path.join(folder, url.split('/')[-1])
+        file_name = os.path.join(folder, clean_filename(url.split('/')[-1]))
         with open(file_name, 'wb') as file:
             file.write(response.content)
 
@@ -55,7 +56,7 @@ def get_media_links(account):
     return media_links
 
 if __name__ == "__main__":
-    account = "WRITE ACCOUNT TWITTER HERE (WITHOUT @)"
+    account = "WRITE_ACCOUNT_TWITTER_HERE_(WITHOUT @)"
     media_links = get_media_links(account)
     print(f"Found {len(media_links)} media files. Downloading...")
 
