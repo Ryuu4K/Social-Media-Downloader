@@ -12,13 +12,15 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_service = Service('./chromedriver.exe')
 
+folders = "WRITE FOLDER HERE"
+
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 def scroll_to_bottom(driver):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     time.sleep(2)
 
-def download_media(url, folder='media'):
+def download_media(url, folder=folders):
     if not os.path.exists(folder):
         os.makedirs(folder)
     response = requests.get(url)
@@ -53,7 +55,7 @@ def get_media_links(account):
     return media_links
 
 if __name__ == "__main__":
-    account = "WRITE ACCOUNT TWITTER HERE (WITHOUT @) "
+    account = "WRITE ACCOUNT TWITTER HERE (WITHOUT @)"
     media_links = get_media_links(account)
     print(f"Found {len(media_links)} media files. Downloading...")
 
