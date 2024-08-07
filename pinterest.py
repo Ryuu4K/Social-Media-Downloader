@@ -39,7 +39,7 @@ webdriver_service = Service('./chromedriver.exe')  # Update with your WebDriver 
 driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
 
 # Define Pinterest search URL with your search key
-search_key = "Fiony JKT48"
+search_key = "WRITE THE SEARCH KEY HERE"
 url = f"https://id.pinterest.com/search/pins/?q={search_key}"
 
 # Open Pinterest search page
@@ -70,7 +70,7 @@ while len(image_urls) < max_images:
         image_urls.add(img['src'])
 
 # Create a folder to save images
-folder_path = "Cepio_1"
+folder_path = "WRITE FOLDER PATH HERE"
 os.makedirs(folder_path, exist_ok=True)
 
 # Download images

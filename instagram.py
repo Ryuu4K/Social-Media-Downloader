@@ -39,10 +39,10 @@ webdriver_service = Service('./chromedriver.exe')  # Update with your WebDriver 
 driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
 
 # List of search keywords
-search_keys = ["fiony jkt48", "fiony", "fiony alveria tantri", "cepio jkt48", "cepio"]
+search_keys = "WRITE SEARCH KEY HERE" #["", ""]
 
 # Create a folder to save images
-folder_path = "instagram_images"
+folder_path = "WRITE FOLDER PATH HERE"
 os.makedirs(folder_path, exist_ok=True)
 
 # Maximum number of images to download per keyword
