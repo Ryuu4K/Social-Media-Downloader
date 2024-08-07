@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.options import Options
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
-chrome_service = Service('path/to/chromedriver.exe')
+chrome_service = Service('./chromedriver.exe')
 
 folders = "WRITE_FOLDER_HERE"
 
